@@ -22,7 +22,7 @@ class Scraper:
     _scraper_nfo = {}
     _scraper_pic = {}
     _rmt_mode = None
-    _temp_path = None
+    _temp_path = None    
 
     def __init__(self):
         self.media = Media()
@@ -273,7 +273,8 @@ class Scraper:
             DomUtils.add_node(doc, root, "season", "-1")
             DomUtils.add_node(doc, root, "episode", "-1")
         # 保存
-        self.__save_nfo(doc, os.path.join(out_path, "tvshow.nfo"))
+        tv_out_path = os.path.dirname(out_path)
+        self.__save_nfo(doc, os.path.join(tv_out_path, "tvshow.nfo"))
 
     def __gen_tv_season_nfo_file(self, seasoninfo: dict, season, out_path):
         """
@@ -302,7 +303,8 @@ class Scraper:
         # seasonnumber
         DomUtils.add_node(doc, root, "seasonnumber", season)
         # 保存
-        self.__save_nfo(doc, os.path.join(out_path, "season.nfo"))
+        tv_out_path = os.path.dirname(out_path)
+        self.__save_nfo(doc, os.path.join(tv_out_path, "season.nfo"))
 
     def __gen_tv_episode_nfo_file(self,
                                   seasoninfo: dict,
@@ -374,7 +376,8 @@ class Scraper:
                     DomUtils.add_node(doc, xactor, "type", "Actor")
                     DomUtils.add_node(doc, xactor, "tmdbid", actor.get("id") or "")
         # 保存文件
-        self.__save_nfo(doc, os.path.join(out_path, os.path.join(out_path, "%s.nfo" % file_name)))
+        tv_out_path = os.path.dirname(out_path)
+        self.__save_nfo(doc, os.path.join(tv_out_path, os.path.join(tv_out_path, "%s.nfo" % file_name)))
 
     def __save_remove_file(self, out_file, content):
         """
